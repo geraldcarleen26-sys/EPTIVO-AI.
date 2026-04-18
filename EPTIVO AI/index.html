@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EPTIVO AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button
+        type="button"
+        id="menu-toggle"
+        class="hamburger-menu"
+        hidden
+        aria-expanded="false"
+        aria-controls="nav-drawer"
+        aria-label="Open menu"
+      >
+        <span class="hamburger-menu__bars" aria-hidden="true"></span>
+      </button>
+      <h1 class="topbar__title">EPTIVO AI</h1>
+      <span id="topbar-display-name" class="topbar-display-name hidden" aria-live="polite"></span>
+    </header>
+
+    <main>
+      <div class="container auth-container" id="auth-wrap">
+      <section id="auth-section" class="card auth-card">
+        <div
+          id="welcome-panel"
+          class="welcome-screen"
+          aria-labelledby="welcome-heading"
+        >
+          <h2 id="welcome-heading" class="welcome-screen__title">
+            <span class="welcome-screen__greet">Welcome to</span>
+            <span class="welcome-screen__brand">EPTIVO AI</span>
+          </h2>
+          <p class="welcome-screen__tagline muted">Continue to log in or create an account.</p>
+          <button type="button" id="welcome-continue-btn" class="welcome-screen__cta">Continue</button>
+        </div>
+        <div id="auth-forms" class="hidden">
+          <div id="auth-mode-picker" class="auth-mode-picker">
+            <p class="auth-mode-picker__lead">Log in or create an account</p>
+            <div class="auth-mode-picker__actions">
+              <button type="button" id="auth-pick-sign-in" class="auth-mode-picker__btn auth-mode-picker__btn--primary">
+                Login
+              </button>
+              <button type="button" id="auth-pick-sign-up" class="auth-mode-picker__btn secondary">
+                Sign up
+              </button>
+            </div>
+          </div>
+
+          <div id="auth-sign-in-panel" class="hidden">
+            <button type="button" id="auth-back-to-picker-from-sign-in" class="secondary auth-back-btn">
+              ← Back
+            </button>
+            <form id="login-form" class="panel auth-single-form">
+              <h3>Login</h3>
+              <label>
+                Username
+                <input id="login-username" required autocomplete="username" />
+              </label>
+              <label class="password-label">
+                Password
+                <span class="password-field">
+                  <input id="login-password" type="password" required autocomplete="current-password" />
+                  <button
+                    type="button"
+                    class="secondary password-toggle"
+                    data-password-for="login-password"
+                    aria-label="Show password"
+                    aria-pressed="false"
+                  >
+                    Show
+                  </button>
+                </span>
+              </label>
+              <button type="submit">Login</button>
+            </form>
+          </div>
+
+          <div id="auth-sign-up-panel" class="hidden">
+            <button type="button" id="auth-back-to-picker-from-sign-up" class="secondary auth-back-btn">
+              ← Back
+            </button>
+            <form id="register-form" class="panel auth-single-form">
+              <h3>Sign up</h3>
+              <label>
+                Username
+                <input id="reg-username" required minlength="3" maxlength="24" autocomplete="username" />
+              </label>
+              <label>
+                Email
+                <input id="reg-email" type="email" required autocomplete="email" />
+              </label>
+              <label class="password-label">
+                Password
+                <span class="password-field">
+                  <input id="reg-password" type="password" required minlength="4" autocomplete="new-password" />
+                  <button
+                    type="button"
+                    class="secondary password-toggle"
+                    data-password-for="reg-password"
+                    aria-label="Show password"
+                    aria-pressed="false"
+                  >
+                    Show
+                  </button>
+                </span>
+              </label>
+              <label>
+                Role
+                <select id="reg-role" required>
+                  <option value="">Choose role</option>
+                  <option>Creator</option>
+                  <option>Social Media Manager</option>
+                  <option>Small Business Owner</option>
+                </select>
+              </label>
+              <button type="submit">Create account</button>
+            </form>
+          </div>
+        </div>
+      </section>
+      </div>
+
+      <section id="app-section" class="app-shell hidden" aria-label="EPTIVO workspace">
+        <span id="current-user" class="sr-only">-</span>
+
+        <div class="app-main">
+        <section id="chat-page" class="panel app-page hidden">
+          <h3>Live chat</h3>
+          <div id="chat-messages" class="chat-messages"></div>
+          <form id="chat-form" class="chat-form">
+            <input
+              id="chat-input"
+              placeholder="Ask EPTIVO... e.g. 'Give me low effort food ideas for engagement'"
+              required
+            />
+            <button type="submit">Ask EPTIVO</button>
+          </form>
+          <div id="chat-actions" class="chat-actions hidden" aria-label="Actions for last suggestions">
+            <button type="button" id="chat-like-btn" class="icon-btn" aria-label="Like top idea" title="Like">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M2 21h4V9H2v12zm20-11c0-1.1-.9-2-2-2h-6.3l1-4.6.03-.32c0-.41-.17-.79-.44-1.06L13 1 7.6 6.4C7.22 6.78 7 7.3 7 7.86V19c0 1.1.9 2 2 2h8c.82 0 1.54-.5 1.84-1.22l3-7.05c.1-.23.16-.48.16-.73v-2z"
+                />
+              </svg>
+            </button>
+            <button
+              type="button"
+              id="chat-dislike-btn"
+              class="icon-btn secondary"
+              aria-label="Dislike top idea"
+              title="Dislike"
+            >
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M22 3h-4v12h4V3zM2 14c0 1.1.9 2 2 2h6.3l-1 4.6-.03.32c0 .41.17.79.44 1.06L11 23l5.4-5.4c.38-.38.6-.9.6-1.46V5c0-1.1-.9-2-2-2H7c-.82 0-1.54.5-1.84 1.22l-3 7.05c-.1.23-.16.48-.16.73v2z"
+                />
+              </svg>
+            </button>
+            <button type="button" id="chat-save-btn" class="icon-btn" aria-label="Save top idea" title="Save">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M17 3H7a2 2 0 00-2 2v16l7-3 7 3V5a2 2 0 00-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <section id="niches-page" class="panel app-page niches-page">
+          <header class="niches-header">
+            <p class="niches-eyebrow">Instagram ideas</p>
+            <h3 class="niches-title">Content generator</h3>
+            <p class="niches-lead muted">Choose a niche, goal, and effort.</p>
+          </header>
+
+          <div class="niches-generator">
+            <form id="generator-form" class="niches-form">
+              <h4 class="niches-form-title">Your brief</h4>
+              <div class="grid-fields niches-grid">
+                <label class="niches-field">
+                  <span class="niches-label">Niche</span>
+                  <select id="niche" required>
+                    <option value="">Select niche</option>
+                    <option>Food</option>
+                    <option>Fashion</option>
+                    <option>Lifestyle</option>
+                    <option>Skincare and Wellness</option>
+                  </select>
+                </label>
+                <label class="niches-field">
+                  <span class="niches-label">Goal</span>
+                  <select id="goal" required>
+                    <option value="">Select goal</option>
+                    <option>Engagement</option>
+                    <option>Growth</option>
+                    <option>Education</option>
+                    <option>Sales</option>
+                  </select>
+                </label>
+                <label class="niches-field">
+                  <span class="niches-label">Effort</span>
+                  <select id="effort" required>
+                    <option value="">Select level</option>
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                  </select>
+                </label>
+                <label class="stretch niches-field niches-field--wide">
+                  <span class="niches-label">Specific topic <span class="niches-optional">(optional)</span></span>
+                  <input
+                    id="custom-idea"
+                    placeholder="e.g. vegan budget dinners, back-to-school outfits, oily skin routine"
+                    autocomplete="off"
+                  />
+                </label>
+                <label class="niches-field niches-field--count">
+                  <span class="niches-label">Number of ideas</span>
+                  <input id="ideas-count" type="number" min="1" max="20" value="8" />
+                </label>
+              </div>
+              <div class="niches-form-actions">
+                <button type="submit" class="niches-generate-btn">Generate ideas</button>
+              </div>
+            </form>
+          </div>
+
+          <section class="niches-results" aria-label="Generated content ideas">
+            <div id="ideas-list" class="list niches-ideas-list"></div>
+          </section>
+        </section>
+
+        <section id="saved-page" class="panel app-page hidden">
+          <h3>Saved Ideas Storage</h3>
+          <div id="saved-list" class="list"></div>
+        </section>
+
+        <section id="preferences-page" class="panel app-page hidden">
+          <h3>Preference learning</h3>
+          <div id="preference-summary" class="list"></div>
+        </section>
+
+        <section id="feedback-page" class="panel app-page hidden">
+          <h3>Feedback</h3>
+          <p class="muted">Tell us what to improve.</p>
+          <form id="feedback-form" class="inline-form">
+            <label class="stretch">
+              What can EPTIVO AI improve?
+              <input id="feedback-input" placeholder="Example: add carousel ideas for skincare" required />
+            </label>
+            <label class="sr-only" aria-hidden="true">
+              Website
+              <input id="feedback-website" tabindex="-1" autocomplete="off" />
+            </label>
+            <button type="submit">Submit</button>
+          </form>
+          <ul id="feedback-history" class="feedback-list"></ul>
+        </section>
+
+        <section id="profile-page" class="panel app-page hidden">
+          <h3>Set profile</h3>
+          <form id="profile-form" class="profile-form">
+            <div class="profile-photo-block">
+              <div class="profile-avatar-widget">
+                <div
+                  id="profile-photo-preview"
+                  class="profile-avatar"
+                  role="img"
+                  aria-label="Profile avatar"
+                >
+                  <span id="profile-photo-initial" class="profile-avatar__initials" aria-hidden="true">?</span>
+                  <img
+                    id="profile-photo-thumb"
+                    class="profile-avatar__photo hidden"
+                    alt=""
+                    width="120"
+                    height="120"
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="profile-avatar__camera"
+                  id="profile-avatar-camera-trigger"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-controls="profile-avatar-source-menu"
+                  title="Change photo"
+                >
+                  <svg
+                    class="profile-avatar__camera-icon"
+                    viewBox="0 0 24 24"
+                    width="18"
+                    height="18"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M9 4h6l1.83 2H20a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h3.17L9 4zm3 13a4 4 0 100-8 4 4 0 000 8z"
+                    />
+                  </svg>
+                </button>
+                <div
+                  id="profile-avatar-source-menu"
+                  class="profile-avatar__menu hidden"
+                  role="menu"
+                  aria-label="Choose photo source"
+                >
+                  <button
+                    type="button"
+                    class="profile-avatar__menu-item"
+                    role="menuitem"
+                    id="profile-photo-gallery-btn"
+                  >
+                    From gallery
+                  </button>
+                  <button
+                    type="button"
+                    class="profile-avatar__menu-item"
+                    role="menuitem"
+                    id="profile-photo-files-btn"
+                  >
+                    From files
+                  </button>
+                  <button
+                    type="button"
+                    class="profile-avatar__menu-item profile-avatar__menu-item--danger hidden"
+                    role="menuitem"
+                    id="profile-photo-remove-menu-btn"
+                  >
+                    Remove picture
+                  </button>
+                </div>
+              </div>
+              <div>
+                <input
+                  id="profile-photo-gallery"
+                  class="file-picker-hidden"
+                  type="file"
+                  accept="image/*"
+                  aria-label="Choose from photo library"
+                />
+                <input
+                  id="profile-photo-files"
+                  class="file-picker-hidden"
+                  type="file"
+                  accept="image/*"
+                  aria-label="Choose an image file"
+                />
+              </div>
+              <button type="button" id="profile-photo-remove" class="secondary profile-avatar-remove hidden">
+                Remove picture
+              </button>
+            </div>
+            <label>
+              Name
+              <input
+                id="profile-display-name"
+                type="text"
+                maxlength="80"
+                placeholder="Your name"
+                autocomplete="name"
+              />
+            </label>
+            <label>
+              Username
+              <input
+                id="profile-username"
+                required
+                minlength="3"
+                maxlength="24"
+                autocomplete="username"
+              />
+            </label>
+            <div class="profile-form-actions">
+              <button type="submit">Set profile</button>
+              <button type="button" id="profile-cancel-btn" class="secondary">Cancel</button>
+            </div>
+          </form>
+        </section>
+        </div>
+      </section>
+    </main>
+
+    <div
+      id="nav-drawer"
+      class="nav-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menu"
+      aria-hidden="true"
+    >
+      <button type="button" class="nav-drawer-backdrop" id="nav-drawer-backdrop" tabindex="-1" aria-label="Close menu"></button>
+      <div class="nav-drawer-panel">
+        <nav class="app-drawer-nav" aria-label="Main navigation">
+          <a href="#chat-page" class="drawer-link" data-page="chat-page">Live chat</a>
+          <a href="#niches-page" class="drawer-link active" data-page="niches-page">Niches</a>
+          <a href="#saved-page" class="drawer-link" data-page="saved-page">Saved</a>
+          <a href="#preferences-page" class="drawer-link" data-page="preferences-page">Preference learning</a>
+          <a href="#feedback-page" class="drawer-link" data-page="feedback-page">Feedback</a>
+          <a href="#profile-page" class="drawer-link" data-page="profile-page">Set profile</a>
+        </nav>
+        <button id="logout-btn" class="secondary drawer-logout" type="button">Logout</button>
+      </div>
+    </div>
+
+    <section id="toast" class="toast hidden"></section>
+    <script src="./script.js"></script>
+  </body>
+</html>
